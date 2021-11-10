@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Album</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+
+<body>
+    <header>
+    </header>
+    <main>
+        <div class="container mt-5 mb-5">
+            <h2><i class="fas fa-users fa-2x"></i> Clientes</h2>
+
+            <ul class="list-group list-group-horizontal col-xs-12 col-sm-12 col-md-6 col-lg-6 mt-4">
+                <div class="col-4">
+                    <button type="button" (click)="cards()" class="btn btn-default"><i class="far fa-id-card"></i> Vista Card</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" (click)="lista()" class="btn btn-default"><i class="fas fa-list-ul"></i> Lista</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" (click)="mostrar_forms()" class="btn btn-default"><i class="fas fa-plus-circle"></i> Adicionar</button>
+                </div>
+            </ul>
+        </div>
+
+        <div *ngIf="mostrar_cards" class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 my-1" *ngFor="let users of user">
+                    <div class="card shadow">
+                        <div class="row no-gutters">
+                            <div class="col-auto" *ngIf="users.genero=='Femenino'">
+                                <img src="assets/woman.png" class="img-fluid mx-2 my-2" alt="" width="50%">
+                            </div>
+                            <div class="col-auto" *ngIf="users.genero=='Masculino'">
+                                <img src="assets/man.png" class="img-fluid mx-2 my-2" alt="" width="50%">
+                            </div>
+                            <div class="col">
+                                <div class="card-block mt-4">
+                                    <h4 class="card-title">{{users.nombre}}</h4>
+                                    <p class="card-text">{{users.pais}}, {{users.ciudad}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="mostrar_lista" class="container">
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre Completo</th>
+                        <th scope="col">Genero</th>
+                        <th scope="col">País</th>
+                        <th scope="col">Ciudad</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let users of user">
+                    <tr>
+                        <th>{{users.nombre}}</th>
+                        <td> {{users.genero}}</td>
+                        <td>{{users.pais}} </td>
+                        <td> {{users.ciudad}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf="mostrar_form" class="container">
+            <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="form-outline">
+                            <input type="text" id="form3Example1" formControlName="nombre" class="form-control" required/>
+                            <label class="form-label" for="form3Example1">Nombre Completo</label>
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline mb-4">
+                            <select class="form-select" formControlName="genero" required>
+                                <option selected value="">Seleccione</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Masculino">Masculino</option>
+
+                              </select>
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+
+                    <!-- Email input -->
+                    <div class="col">
+                        <div class="form-outline mb-4">
+                            <input type="text" id="form3Example3" class="form-control" formControlName="pais" required/>
+                            <label class="form-label" for="form3Example3">País</label>
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-outline mb-4">
+                            <input type="text" id="form3Example3" class="form-control" formControlName="ciudad" required/>
+                            <label class="form-label" for="form3Example3">Ciudad</label>
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit button -->
+                <div class="col-6">
+                    <button type="" class="btn btn-success btn-block mb-4 mx-2"><i class="fas fa-check"></i> Agregar</button>
+                    <button type="reset" class="btn  btn-danger btn-block mb-4 mx-2"><i class="fas fa-times"></i> Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <router-outlet></router-outlet>
+</body>
+
+</html>
